@@ -91,6 +91,23 @@ Fonte: API SGS do Banco Central, consulta de 24/10/2026.
 | **Claude Code** | O agente | [claude.com/claude-code](https://claude.com/claude-code) |
 | **Editor** | Ler e revisar o código | [VS Code](https://code.visualstudio.com), [Cursor](https://cursor.com) ou [Antigravity](https://antigravity.google) |
 
+#### O que é cada uma e por que importa
+
+**Terminal.** É a janela onde você digita comandos em texto, em vez de clicar. Todo o projeto roda dali: instalar, rodar a pipeline, testar, commitar.
+*Por que importa:* o agente também trabalha no terminal. Cada vez que ele pede permissão para rodar um comando, é você quem aprova. Se você não sabe em que pasta está nem o que o comando faz, está aprovando às cegas. No Windows, use o Git Bash para que os comandos sejam os mesmos do Mac e do Linux.
+
+**Git + GitHub.** O Git guarda o histórico do projeto: cada commit é uma foto do código num momento. O GitHub é onde essa história fica publicada, e também onde rodam o CI e a rotina diária (`.github/workflows/`).
+*Por que importa:* é o seu botão de desfazer. O agente edita vários arquivos de uma vez. Com Git, você vê exatamente o que mudou (`git diff`) e volta atrás se não gostou. Sem Git, um erro do agente pode custar horas. O GitHub ainda serve de backup e de vitrine do projeto.
+
+**uv.** Instala o Python na versão certa, cria o ambiente isolado do projeto e instala as dependências. Substitui `pyenv`, `venv` e `pip` com um comando só.
+*Por que importa:* garante que o projeto roda igual na sua máquina, na do aluno e no GitHub Actions. A versão do Python está no `.python-version` e as versões exatas das bibliotecas estão no `uv.lock`. `uv sync` reproduz tudo. Por isso a regra do projeto é: dependência só entra com `uv add`, nunca com `pip install` solto.
+
+**Claude Code.** O agente. Ele lê o código, edita arquivos, roda comandos e testes, e segue as regras do `CLAUDE.md`. Funciona no terminal, na IDE, no desktop e na web.
+*Por que importa:* é quem faz o trabalho pesado. As outras quatro ferramentas existem para você controlar o que ele faz: o terminal mostra o que ele roda, o Git guarda o que ele mudou, o uv deixa o ambiente previsível e o editor deixa você ler o resultado.
+
+**Editor.** Um programa para abrir e ler o código com cores, busca e árvore de pastas. VS Code é o padrão gratuito. Cursor e Antigravity são editores com IA embutida, mas também abrem o projeto normalmente.
+*Por que importa:* o agente escreve, mas a responsabilidade é sua. Antes de commitar, você abre o arquivo, lê o diff e confere se faz sentido. Revisar é a parte do trabalho que não dá para delegar.
+
 Para o modo local não precisa de conta nenhuma. Supabase só no passo B.
 
 ### A. Rodar no modo local (5 minutos, sem conta)
