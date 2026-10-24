@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "painel-ro": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["postgres-mcp", "--access-mode=restricted"],
+      "env": {
+        "DATABASE_URI": "${DATABASE_URL_RO}"
+      }
+    }
+  }
+}

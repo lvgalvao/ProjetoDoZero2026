@@ -1,0 +1,19 @@
+# vídeo e dados locais
+*.mp4
+*.mov
+*.mp3
+*.wav
+data/
+
+# segredos
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+.DS_Store

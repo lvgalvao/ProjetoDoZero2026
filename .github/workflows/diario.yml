@@ -1,0 +1,29 @@
+name: diario
+
+on:
+  schedule:
+    - cron: "0 12 * * *" # 12h UTC = 9h em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  painel:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+      - run: uv run python -m scripts.rodar_tudo
+      - name: Salva o relatório do dia no repositório
+        run: |
+          git config user.name "painel-bot"
+          git config user.email "painel-bot@users.noreply.github.com"
+          git add relatorios/
+          git diff --staged --quiet || git commit -m "Relatório $(date +%F)"
+          git push
